@@ -38,6 +38,8 @@ let defaultFood = {
 
 let snakeMoveState = 'right'
 
+let timer = ''
+
 const templateCell = (n, y) => {
     let t = ''
     for (let i = 0; i < n; i++) {
@@ -86,15 +88,21 @@ const bindEvent = () => {
 
 const renderSnake = () => {
     clearSnake()
-    for (let i = 0; i < snakeArr.length; i++) {
-        let c = snakeArr[i]
-        let x = c.x
-        let y = c.y
-        let snake = document.querySelector(`[data-x="${x}"][data-y="${y}"]`)
-        snake.classList.add('snake')
-        if (i === 0) {
-            // 当前是蛇头
-            snake.classList.add('snakeHead')
+    let snakeHead = snakeArr[0]
+    if (snakeHead.x > 9 || snakeHead.x < 0 || snakeHead.y > 9 || snakeHead.y < 0) {
+        alert('你死了')
+        clearInterval(timer)
+    } else {
+        for (let i = 0; i < snakeArr.length; i++) {
+            let c = snakeArr[i]
+            let x = c.x
+            let y = c.y
+            let snake = document.querySelector(`[data-x="${x}"][data-y="${y}"]`)
+            snake.classList.add('snake')
+            if (i === 0) {
+                // 当前是蛇头
+                snake.classList.add('snakeHead')
+            }
         }
     }
 }
@@ -179,7 +187,7 @@ const snakeMove = () => {
 }
 
 const snakeAutoMove = (start) => {
-    let timer = setInterval(() => {
+    timer = setInterval(() => {
         snakeMove()
     }, 200)
     if (start === false) {
@@ -194,24 +202,30 @@ const bindButtonEvent = () => {
         snakeAutoMove(true)
     })
     pause.addEventListener('click', () => {
-        snakeAutoMove(false)
+        clearInterval(timer)
     })
 }
 
 const makeFood = () => {
     let x = parseInt(Math.random() * 10)
     let y = parseInt(Math.random() * 10)
+    let couldCreat = true
     for (let i = 0; i < snakeArr.length; i++) {
         let c = snakeArr[i]
         if (x === c.x || y === c.y) {
-            break
+            couldCreat = false
         }
+    }
+    if (couldCreat) {
         let food = document.querySelector(`[data-x="${x}"][data-y="${y}"]`)
         defaultFood.x = x
         defaultFood.y = y
         food.classList.add('food')
+    } else {
+        makeFood()
     }
 }
+
 
 const __main = () => {
     let n = 10
