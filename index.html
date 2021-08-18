@@ -7,32 +7,104 @@
         .cell {
             width: 30px;
             height: 30px;
-            border: 1px solid;
+            /*border: 1px solid;*/
         }
         #id-div-mime {
+            background: rgb(153, 161, 138);
             width: 300px;
-            height: 300px;
-            margin-bottom: 30px;
+            height: 600px;
+            border: 5px solid;
         }
         .row {
             display: flex;
             width: 100%;
         }
         .snake {
-            background: pink;
+            background: black;
+            border: 3px solid #a2b187;
+            box-sizing: border-box;
         }
         .snakeHead {
-            background: aqua;
+            /*background: aqua;*/
+            background: black;
+            border: 3px solid #a2b187;
+            box-sizing: border-box;
         }
         .food {
-            background: darkorange;
+            background: black;
+            border-radius: 50%;
+            border: 3px solid #a2b187;
+            box-sizing: border-box;
+        }
+        #shuoming {
+            background: rgb(153, 161, 138);
+            width: 300px;
+            height: 600px;
+            border: 5px solid;
+            border-left: 0;
+        }
+        #container {
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+        }
+        #title {
+            font-size: 30px;
+            margin-bottom: 100px;
+            text-align: center;
+        }
+        .content {
+            margin: 0 10px 20px 10px;
+        }
+        #id-button-start {
+            margin-right: 20px;
+        }
+        .button {
+            border: 2px dashed;
+            width: 100px;
+            height: 50px;
+            border-radius: 20px;
+            text-align: center;
+            line-height: 50px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .button-container {
+            margin-top: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .score-container {
+            display: flex;
+            align-items: center;
+        }
+        .score-title {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+        .score {
+            font-size: 20px;
         }
     </style>
 </head>
 <body>
-<div id="id-div-mime"></div>
-<button id="id-button-start">开始</button>
-<button id="id-button-pause">暂停</button>
+<div id="container">
+    <div id="id-div-mime"></div>
+    <div id="shuoming">
+        <div id="title">贪吃蛇</div>
+        <div class="content">操作方式：按 W、A、S、D 控制蛇前进的方向</div>
+        <div class="content">游戏说明：蛇吃到食物会加分，碰到边界游戏结束</div>
+        <div class="score-container content">
+            <div class="score-title">得分:</div>
+            <div class="score">0</div>
+        </div>
+        <div class="button-container">
+            <div id="id-button-start" class="button">开始</div>
+            <div id="id-button-pause" class="button">暂停</div>
+        </div>
+    </div>
+</div>
 <script src="snake.js"></script>
 </body>
 </html>

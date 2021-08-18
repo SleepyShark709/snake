@@ -15,6 +15,8 @@ const e = (selector) => {
     }
 }
 
+let score = 0
+
 
 let snakeArr = [
     {
@@ -58,10 +60,10 @@ const createRow = (n, y) => {
     return `<div class="row">${row}</div>`
 }
 
-const createContainer = (n) => {
+const createContainer = (x, y) => {
     let container = document.querySelector('#id-div-mime')
-    for (let i = 0; i < n; i++) {
-        container.insertAdjacentHTML('beforeend', createRow(n, i))
+    for (let i = 0; i < y; i++) {
+        container.insertAdjacentHTML('beforeend', createRow(x, i))
     }
 }
 
@@ -86,10 +88,10 @@ const bindEvent = () => {
     })
 }
 
-const renderSnake = () => {
+const renderSnake = (x, y) => {
     clearSnake()
     let snakeHead = snakeArr[0]
-    if (snakeHead.x > 9 || snakeHead.x < 0 || snakeHead.y > 9 || snakeHead.y < 0) {
+    if (snakeHead.x > x - 1 || snakeHead.x < 0 || snakeHead.y > y - 1 || snakeHead.y < 0) {
         alert('你死了')
         clearInterval(timer)
     } else {
@@ -121,6 +123,7 @@ const clearSnake = () => {
 }
 
 const snakeMove = () => {
+    let scoreElement = document.querySelector('.score')
     if (snakeMoveState === 'up') {
         let new_location_x = snakeArr[0].x
         let new_location_y = snakeArr[0].y
@@ -131,6 +134,8 @@ const snakeMove = () => {
         if (new_location_x === defaultFood.x && new_location_y === defaultFood.y) {
             let food = document.querySelector('.food')
             food.classList.remove('food')
+            score += 10
+            scoreElement.innerHTML = score
             makeFood()
         } else {
             snakeArr.splice(snakeArr.length - 1, 1) // 如果没有吃到食物就删除最后一个元素
@@ -148,6 +153,8 @@ const snakeMove = () => {
         if (new_location_x === defaultFood.x && new_location_y === defaultFood.y) {
             let food = document.querySelector('.food')
             food.classList.remove('food')
+            score += 10
+            scoreElement.innerHTML = score
             makeFood()
         } else {
             snakeArr.splice(snakeArr.length - 1, 1) // 如果没有吃到食物就删除最后一个元素
@@ -163,6 +170,8 @@ const snakeMove = () => {
         if (new_location_x === defaultFood.x && new_location_y === defaultFood.y) {
             let food = document.querySelector('.food')
             food.classList.remove('food')
+            score += 10
+            scoreElement.innerHTML = score
             makeFood()
         } else {
             snakeArr.splice(snakeArr.length - 1, 1) // 如果没有吃到食物就删除最后一个元素
@@ -178,6 +187,8 @@ const snakeMove = () => {
         if (new_location_x === defaultFood.x && new_location_y === defaultFood.y) {
             let food = document.querySelector('.food')
             food.classList.remove('food')
+            score += 10
+            scoreElement.innerHTML = score
             makeFood()
         } else {
             snakeArr.splice(snakeArr.length - 1, 1) // 如果没有吃到食物就删除最后一个元素
@@ -208,7 +219,7 @@ const bindButtonEvent = () => {
 
 const makeFood = () => {
     let x = parseInt(Math.random() * 10)
-    let y = parseInt(Math.random() * 10)
+    let y = parseInt(Math.random() * 20)
     let couldCreat = true
     for (let i = 0; i < snakeArr.length; i++) {
         let c = snakeArr[i]
@@ -228,8 +239,9 @@ const makeFood = () => {
 
 
 const __main = () => {
-    let n = 10
-    createContainer(n)
+    let x = 10
+    let y = 20
+    createContainer(x, y)
     renderSnake()
     bindEvent()
     bindButtonEvent()
